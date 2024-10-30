@@ -3,6 +3,7 @@ package nextstep.shoppingcart
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import nextstep.shoppingcart.ProductRepository.products
 import nextstep.shoppingcart.ui.component.ProductItem
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 import nextstep.signup.R
@@ -36,9 +38,15 @@ class MainActivity : ComponentActivity() {
                 ShoppingProductsScreen(
                     modifier = Modifier.fillMaxSize(),
                     products = products,
+                    ::navigateToDetail,
                 )
             }
         }
+    }
+
+    private fun navigateToDetail(productId: Long) {
+        val intent = DetailActivity.intent(this@MainActivity, productId)
+        startActivity(intent)
     }
 }
 
@@ -47,11 +55,17 @@ class MainActivity : ComponentActivity() {
 fun ShoppingProductsScreen(
     modifier: Modifier = Modifier,
     products: List<Product>,
+    onProductClick: (id: Long) -> Unit,
 ) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text(text = stringResource(R.string.product_list_title), fontSize = 22.sp,) },
+                title = {
+                    Text(
+                        text = stringResource(R.string.product_list_title),
+                        fontSize = 22.sp,
+                    )
+                },
                 actions = {
                     IconButton(
                         onClick = {
@@ -72,7 +86,7 @@ fun ShoppingProductsScreen(
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
             items(products) { product ->
-                ProductItem(modifier = Modifier.padding(6.dp), product = product)
+                ProductItem(modifier = Modifier.padding(6.dp).clickable { onProductClick(product.id) }, product = product)
             }
         }
     }
@@ -80,9 +94,10 @@ fun ShoppingProductsScreen(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun GreetingPreview() {
+fun ShoppingProductsPreview() {
     ShoppingProductsScreen(
         modifier = Modifier.fillMaxSize(),
         products = products,
+        {},
     )
 }
