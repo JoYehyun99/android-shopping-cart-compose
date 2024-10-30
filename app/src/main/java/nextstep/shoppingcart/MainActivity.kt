@@ -20,18 +20,23 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import nextstep.shoppingcart.ui.component.ProductItem
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
+import nextstep.signup.R
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             ShoppingCartTheme {
-                ShoppingProductsScreen()
+                ShoppingProductsScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    products = products,
+                )
             }
         }
     }
@@ -39,16 +44,14 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShoppingProductsScreen() {
+fun ShoppingProductsScreen(
+    modifier: Modifier = Modifier,
+    products: List<Product>,
+) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = {
-                    Text(
-                        text = "상품 목록",
-                        fontSize = 22.sp,
-                    )
-                },
+                title = { Text(text = stringResource(R.string.product_list_title), fontSize = 22.sp,) },
                 actions = {
                     IconButton(
                         onClick = {
@@ -62,7 +65,7 @@ fun ShoppingProductsScreen() {
         },
     ) { paddingValues ->
         LazyVerticalGrid(
-            modifier = Modifier.fillMaxSize().padding(paddingValues),
+            modifier = modifier.padding(paddingValues),
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(12.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -78,7 +81,8 @@ fun ShoppingProductsScreen() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun GreetingPreview() {
-    ShoppingCartTheme {
-        ShoppingProductsScreen()
-    }
+    ShoppingProductsScreen(
+        modifier = Modifier.fillMaxSize(),
+        products = products,
+    )
 }

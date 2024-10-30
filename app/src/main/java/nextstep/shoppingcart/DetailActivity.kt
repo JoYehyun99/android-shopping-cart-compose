@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import nextstep.shoppingcart.ui.theme.Blue50
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
+import nextstep.signup.R
 
 class DetailActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +64,7 @@ fun ProductDetailScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("상품 상세")
+                    Text( stringResource(R.string.product_detail_title))
                 },
                 navigationIcon = {
                     Icon(
@@ -111,7 +113,7 @@ fun ProductDetailScreen(
                     // TODO: 클릭 액션
                 },
             ) {
-                Text("장바구니 담기", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                Text( stringResource(R.string.add_cart_button_text), fontSize = 20.sp, fontWeight = FontWeight.Bold)
             }
         }
     }
