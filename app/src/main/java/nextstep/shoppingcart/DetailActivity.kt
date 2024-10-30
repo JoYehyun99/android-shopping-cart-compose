@@ -7,7 +7,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,16 +16,11 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import nextstep.shoppingcart.ProductRepository.findProductById
 import nextstep.shoppingcart.ProductRepository.products
+import nextstep.shoppingcart.ui.component.BackNavigationAppBar
 import nextstep.shoppingcart.ui.theme.Blue50
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 import nextstep.signup.R
@@ -57,6 +52,7 @@ class DetailActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     product = findProductById(productId),
                     navigateToCart = ::navigateToCart,
+                    navigateBack = { finish() },
                 )
             }
         }
@@ -79,34 +75,17 @@ class DetailActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun BackNavigationAppBar(
-    title: String,
-    onBackClick: () -> Unit,
-) {
-    TopAppBar(
-        title = { Text(title) },
-        navigationIcon = {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = null,
-                modifier = Modifier.padding(12.dp).clickable { onBackClick() },
-            )
-        },
-    )
-}
-
 @Composable
 private fun ProductDetailScreen(
     modifier: Modifier = Modifier,
     product: Product,
     formatter: DecimalFormat = DecimalFormat(stringResource(R.string.currency_format)),
     navigateToCart: () -> Unit,
+    navigateBack: () -> Unit,
 ) {
     Scaffold(
         modifier = modifier,
-        topBar = { BackNavigationAppBar(stringResource(R.string.product_detail_title), {}) },
+        topBar = { BackNavigationAppBar(stringResource(R.string.product_detail_title), navigateBack) },
     ) { paddingValue ->
         Column(
             modifier = Modifier.padding(paddingValue).fillMaxSize(),
@@ -156,5 +135,5 @@ private fun ProductDetailScreen(
 @Preview(showBackground = true)
 @Composable
 private fun ProductDetailPreview() {
-    ProductDetailScreen(product = products[0], navigateToCart = {})
+    ProductDetailScreen(product = products[0], navigateToCart = {}, navigateBack = {})
 }

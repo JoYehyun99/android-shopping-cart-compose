@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import nextstep.shoppingcart.ui.component.BackNavigationAppBar
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 import nextstep.signup.R
 
@@ -21,7 +22,7 @@ class CartActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ShoppingCartTheme {
-                CartScreen(modifier = Modifier.fillMaxSize())
+                CartScreen(modifier = Modifier.fillMaxSize(), navigateBack = { finish() })
             }
         }
     }
@@ -32,10 +33,13 @@ class CartActivity : ComponentActivity() {
 }
 
 @Composable
-fun CartScreen(modifier: Modifier = Modifier) {
+fun CartScreen(
+    modifier: Modifier = Modifier,
+    navigateBack: () -> Unit,
+) {
     Scaffold(
         modifier = modifier,
-        topBar = { BackNavigationAppBar(stringResource(R.string.cart_title), {}) },
+        topBar = { BackNavigationAppBar(stringResource(R.string.cart_title), navigateBack) },
     ) { innerPadding ->
     }
 }
@@ -43,5 +47,5 @@ fun CartScreen(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun CartScreenPreview() {
-    CartScreen(modifier = Modifier.fillMaxSize())
+    CartScreen(modifier = Modifier.fillMaxSize(), navigateBack = {})
 }
