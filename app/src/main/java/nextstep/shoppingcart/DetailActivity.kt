@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -75,27 +76,31 @@ class DetailActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductDetailScreen(
+fun BackNavigationAppBar(
+    title: String,
+    onBackClick: () -> Unit,
+)  {
+    TopAppBar(
+        title = { Text(title) },
+        navigationIcon = {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = null,
+                modifier = Modifier.padding(12.dp).clickable { onBackClick() },
+            )
+        },
+    )
+}
+
+@Composable
+private fun ProductDetailScreen(
     modifier: Modifier = Modifier,
     product: Product,
     formatter: DecimalFormat = DecimalFormat(stringResource(R.string.currency_format)),
 ) {
     Scaffold(
         modifier = modifier,
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(stringResource(R.string.product_detail_title))
-                },
-                navigationIcon = {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = null,
-                        modifier = Modifier.padding(12.dp),
-                    )
-                },
-            )
-        },
+        topBar = { BackNavigationAppBar(stringResource(R.string.product_detail_title), {}) },
     ) { paddingValue ->
         Column(
             modifier = Modifier.padding(paddingValue).fillMaxSize(),
@@ -117,7 +122,7 @@ fun ProductDetailScreen(
                 modifier = Modifier.fillMaxWidth().padding(18.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                Text("금액", fontSize = 20.sp)
+                Text(stringResource(R.string.product_price_title), fontSize = 20.sp)
                 Text(formatter.format(product.price), fontSize = 20.sp)
             }
             Spacer(Modifier.weight(1f))
@@ -146,6 +151,6 @@ fun ProductDetailScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun ProductDetailPreview() {
+private fun ProductDetailPreview() {
     ProductDetailScreen(product = products[0])
 }

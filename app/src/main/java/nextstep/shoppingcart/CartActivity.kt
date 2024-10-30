@@ -1,5 +1,7 @@
 package nextstep.shoppingcart
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,9 +21,13 @@ class CartActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ShoppingCartTheme {
-
+                CartScreen(modifier = Modifier.fillMaxSize())
             }
         }
+    }
+
+    companion object {
+        fun intent(context: Context): Intent = Intent(context, CartActivity::class.java)
     }
 }
 

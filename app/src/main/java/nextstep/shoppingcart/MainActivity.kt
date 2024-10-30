@@ -39,6 +39,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     products = products,
                     ::navigateToDetail,
+                    ::navigateToCart,
                 )
             }
         }
@@ -48,6 +49,10 @@ class MainActivity : ComponentActivity() {
         val intent = DetailActivity.intent(this@MainActivity, productId)
         startActivity(intent)
     }
+
+    private fun navigateToCart() {
+        startActivity(CartActivity.intent(this@MainActivity))
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,7 +60,8 @@ class MainActivity : ComponentActivity() {
 fun ShoppingProductsScreen(
     modifier: Modifier = Modifier,
     products: List<Product>,
-    onProductClick: (id: Long) -> Unit,
+    navigateToDetail: (id: Long) -> Unit,
+    navigateToCart: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -68,9 +74,7 @@ fun ShoppingProductsScreen(
                 },
                 actions = {
                     IconButton(
-                        onClick = {
-                            // TODO: 장바구니 이동
-                        },
+                        onClick = { navigateToCart() },
                     ) {
                         Icon(imageVector = Icons.Filled.ShoppingCart, contentDescription = null)
                     }
@@ -86,7 +90,10 @@ fun ShoppingProductsScreen(
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
             items(products) { product ->
-                ProductItem(modifier = Modifier.padding(6.dp).clickable { onProductClick(product.id) }, product = product)
+                ProductItem(
+                    modifier = Modifier.padding(6.dp).clickable { navigateToDetail(product.id) },
+                    product = product,
+                )
             }
         }
     }
@@ -98,6 +105,6 @@ fun ShoppingProductsPreview() {
     ShoppingProductsScreen(
         modifier = Modifier.fillMaxSize(),
         products = products,
-        {},
+        {},{}
     )
 }
