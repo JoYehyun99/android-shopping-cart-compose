@@ -56,9 +56,14 @@ class DetailActivity : ComponentActivity() {
                 ProductDetailScreen(
                     modifier = Modifier.fillMaxSize(),
                     product = findProductById(productId),
+                    navigateToCart = ::navigateToCart,
                 )
             }
         }
+    }
+
+    private fun navigateToCart() {
+        startActivity(CartActivity.intent(this@DetailActivity))
     }
 
     companion object {
@@ -79,7 +84,7 @@ class DetailActivity : ComponentActivity() {
 fun BackNavigationAppBar(
     title: String,
     onBackClick: () -> Unit,
-)  {
+) {
     TopAppBar(
         title = { Text(title) },
         navigationIcon = {
@@ -97,6 +102,7 @@ private fun ProductDetailScreen(
     modifier: Modifier = Modifier,
     product: Product,
     formatter: DecimalFormat = DecimalFormat(stringResource(R.string.currency_format)),
+    navigateToCart: () -> Unit,
 ) {
     Scaffold(
         modifier = modifier,
@@ -135,9 +141,7 @@ private fun ProductDetailScreen(
                     ),
                 contentPadding = PaddingValues(vertical = 15.dp),
                 shape = RectangleShape,
-                onClick = {
-                    // TODO: 클릭 액션
-                },
+                onClick = { navigateToCart() },
             ) {
                 Text(
                     stringResource(R.string.add_cart_button_text),
@@ -152,5 +156,5 @@ private fun ProductDetailScreen(
 @Preview(showBackground = true)
 @Composable
 private fun ProductDetailPreview() {
-    ProductDetailScreen(product = products[0])
+    ProductDetailScreen(product = products[0], navigateToCart = {})
 }
