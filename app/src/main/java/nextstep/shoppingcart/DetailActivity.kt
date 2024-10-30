@@ -9,22 +9,17 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -35,7 +30,7 @@ import coil3.compose.AsyncImage
 import nextstep.shoppingcart.ProductRepository.findProductById
 import nextstep.shoppingcart.ProductRepository.products
 import nextstep.shoppingcart.ui.component.BackNavigationAppBar
-import nextstep.shoppingcart.ui.theme.Blue50
+import nextstep.shoppingcart.ui.component.BottomButton
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 import nextstep.signup.R
 
@@ -85,7 +80,12 @@ private fun ProductDetailScreen(
 ) {
     Scaffold(
         modifier = modifier,
-        topBar = { BackNavigationAppBar(stringResource(R.string.product_detail_title), navigateBack) },
+        topBar = {
+            BackNavigationAppBar(
+                stringResource(R.string.product_detail_title),
+                navigateBack,
+            )
+        },
     ) { paddingValue ->
         Column(
             modifier = Modifier.padding(paddingValue).fillMaxSize(),
@@ -111,23 +111,10 @@ private fun ProductDetailScreen(
                 Text(formatter.format(product.price), fontSize = 20.sp)
             }
             Spacer(Modifier.weight(1f))
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                colors =
-                    ButtonDefaults.buttonColors(
-                        containerColor = Blue50,
-                        contentColor = Color.White,
-                    ),
-                contentPadding = PaddingValues(vertical = 15.dp),
-                shape = RectangleShape,
-                onClick = { navigateToCart() },
-            ) {
-                Text(
-                    stringResource(R.string.add_cart_button_text),
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                )
-            }
+            BottomButton(
+                title = stringResource(R.string.add_cart_button_text),
+                onClick = navigateToCart,
+            )
         }
     }
 }
