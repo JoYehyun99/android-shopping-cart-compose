@@ -10,12 +10,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import nextstep.shoppingcart.data.Cart
-import nextstep.shoppingcart.data.dummyCartItems
+import nextstep.shoppingcart.data.ProductRepository.products
 import nextstep.shoppingcart.ui.component.BackNavigationAppBar
 import nextstep.shoppingcart.ui.component.BottomButton
 import nextstep.shoppingcart.ui.component.CartItem
@@ -23,10 +25,12 @@ import nextstep.signup.R
 
 @Composable
 fun CartScreen(
-    modifier: Modifier = Modifier,
     navigateBack: () -> Unit,
     cartItems: List<Cart>,
     totalPrice: Int,
+    onIncrease: (Long) -> Unit,
+    onDecrease: (Long) -> Unit,
+    modifier: Modifier = Modifier,
     formatter: DecimalFormat = DecimalFormat(stringResource(R.string.currency_format)),
 ) {
     Scaffold(
@@ -40,7 +44,7 @@ fun CartScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 items(cartItems) { item ->
-                    CartItem(cart = item)
+                    CartItem(cart = item, onIncrease = onIncrease, onDecrease = onDecrease)
                 }
             }
             BottomButton(title = "주문하기(${formatter.format(totalPrice)})") { }
@@ -51,8 +55,16 @@ fun CartScreen(
 @Preview(showBackground = true)
 @Composable
 fun CartScreenPreview() {
+    val dummyCartItems =
+        remember {
+            mutableStateListOf(
+                Cart(0L, product = products[0], 1),
+                Cart(1L, product = products[1], 2),
+                Cart(2L, product = products[2], 3),
+            )
+        }
+
     CartScreen(
-        modifier = Modifier.fillMaxSize(),
         navigateBack = {},
         cartItems = dummyCartItems,
         totalPrice =
@@ -60,5 +72,8 @@ fun CartScreenPreview() {
                 it.quantity *
                     it.product.price
             },
+        onIncrease = {},
+        onDecrease = {},
+        modifier = Modifier.fillMaxSize(),
     )
 }

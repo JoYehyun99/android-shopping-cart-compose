@@ -25,13 +25,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import nextstep.shoppingcart.data.Cart
-import nextstep.shoppingcart.data.dummyCartItems
+import nextstep.shoppingcart.data.ProductRepository.products
 import nextstep.shoppingcart.ui.theme.Gray10
 import nextstep.signup.R
 
 @Composable
 fun CartItem(
     cart: Cart,
+    onIncrease: (Long) -> Unit,
+    onDecrease: (Long) -> Unit,
     modifier: Modifier = Modifier,
     formatter: DecimalFormat = DecimalFormat(stringResource(R.string.currency_format)),
 ) {
@@ -49,7 +51,7 @@ fun CartItem(
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(cart.product.name, fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                IconButton(onClick = {}) {
+                IconButton(onClick = { /* TODO: 카트 아이템 삭제 로직 */ }) {
                     Icon(
                         imageVector = Icons.Filled.Close,
                         contentDescription = null,
@@ -72,7 +74,11 @@ fun CartItem(
                     verticalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(formatter.format(cart.product.price), fontSize = 16.sp)
-                    CounterButtonGroup(count = cart.quantity, onIncrement = {}, onDecrement = {})
+                    CounterButtonGroup(
+                        count = cart.quantity,
+                        onIncrement = { onIncrease(cart.id) },
+                        onDecrement = { onDecrease(cart.id) },
+                    )
                 }
             }
         }
@@ -82,5 +88,5 @@ fun CartItem(
 @Preview(showBackground = true)
 @Composable
 fun CartItemPreview() {
-    CartItem(dummyCartItems[0], modifier = Modifier.fillMaxWidth())
+    CartItem(Cart(0L, product = products[0], 1), {}, {}, modifier = Modifier.fillMaxWidth())
 }
