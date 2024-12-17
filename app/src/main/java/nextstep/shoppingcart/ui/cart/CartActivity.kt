@@ -48,6 +48,10 @@ class CartActivity : ComponentActivity() {
                     onDecrease = { id ->
                         val index = dummyCartItems.indexOfFirst { id == it.id }
                         if (index != -1) {
+                            if (dummyCartItems[index].quantity == 1) {
+                                dummyCartItems.remove(dummyCartItems[index])
+                                return@CartScreen
+                            }
                             dummyCartItems[index] = dummyCartItems[index].copy(quantity = dummyCartItems[index].quantity - 1)
                         }
                     },
