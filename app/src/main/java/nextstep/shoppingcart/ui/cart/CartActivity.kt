@@ -22,7 +22,7 @@ class CartActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val dummyCartItems =
+        val cartItems =
             mutableStateListOf(
                 Cart(0L, product = products[0], 1),
                 Cart(1L, product = products[1], 2),
@@ -33,26 +33,32 @@ class CartActivity : ComponentActivity() {
             ShoppingCartTheme {
                 CartScreen(
                     navigateBack = { finish() },
-                    cartItems = dummyCartItems,
+                    cartItems = cartItems,
                     totalPrice =
-                        dummyCartItems.sumOf {
+                        cartItems.sumOf {
                             it.quantity *
                                 it.product.price
                         },
                     onIncrease = { id ->
-                        val index = dummyCartItems.indexOfFirst { id == it.id }
+                        val index = cartItems.indexOfFirst { id == it.id }
                         if (index != -1) {
-                            dummyCartItems[index] = dummyCartItems[index].copy(quantity = dummyCartItems[index].quantity + 1)
+                            cartItems[index] = cartItems[index].copy(quantity = cartItems[index].quantity + 1)
                         }
                     },
                     onDecrease = { id ->
-                        val index = dummyCartItems.indexOfFirst { id == it.id }
+                        val index = cartItems.indexOfFirst { id == it.id }
                         if (index != -1) {
-                            if (dummyCartItems[index].quantity == 1) {
-                                dummyCartItems.remove(dummyCartItems[index])
+                            if (cartItems[index].quantity == 1) {
+                                cartItems.remove(cartItems[index])
                                 return@CartScreen
                             }
-                            dummyCartItems[index] = dummyCartItems[index].copy(quantity = dummyCartItems[index].quantity - 1)
+                            cartItems[index] = cartItems[index].copy(quantity = cartItems[index].quantity - 1)
+                        }
+                    },
+                    onDelete = { id ->
+                        val index = cartItems.indexOfFirst { id == it.id }
+                        if (index != -1) {
+                            cartItems.remove(cartItems[index])
                         }
                     },
                     modifier =

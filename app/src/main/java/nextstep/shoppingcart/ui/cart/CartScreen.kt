@@ -30,6 +30,7 @@ fun CartScreen(
     totalPrice: Int,
     onIncrease: (Long) -> Unit,
     onDecrease: (Long) -> Unit,
+    onDelete: (Long) -> Unit,
     modifier: Modifier = Modifier,
     formatter: DecimalFormat = DecimalFormat(stringResource(R.string.currency_format)),
 ) {
@@ -44,7 +45,7 @@ fun CartScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 items(cartItems) { item ->
-                    CartItem(cart = item, onIncrease = onIncrease, onDecrease = onDecrease)
+                    CartItem(cart = item, onIncrease = onIncrease, onDecrease = onDecrease, onDelete = onDelete)
                 }
             }
             BottomButton(title = "주문하기(${formatter.format(totalPrice)})") { }
@@ -74,6 +75,7 @@ fun CartScreenPreview() {
             },
         onIncrease = {},
         onDecrease = {},
+        onDelete = {},
         modifier = Modifier.fillMaxSize(),
     )
 }

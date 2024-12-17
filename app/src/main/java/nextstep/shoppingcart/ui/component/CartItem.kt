@@ -34,6 +34,7 @@ fun CartItem(
     cart: Cart,
     onIncrease: (Long) -> Unit,
     onDecrease: (Long) -> Unit,
+    onDelete: (Long) -> Unit,
     modifier: Modifier = Modifier,
     formatter: DecimalFormat = DecimalFormat(stringResource(R.string.currency_format)),
 ) {
@@ -51,7 +52,7 @@ fun CartItem(
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(cart.product.name, fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                IconButton(onClick = { /* TODO: 카트 아이템 삭제 로직 */ }) {
+                IconButton(onClick = { onDelete(cart.id) }) {
                     Icon(
                         imageVector = Icons.Filled.Close,
                         contentDescription = null,
@@ -88,5 +89,5 @@ fun CartItem(
 @Preview(showBackground = true)
 @Composable
 fun CartItemPreview() {
-    CartItem(Cart(0L, product = products[0], 1), {}, {}, modifier = Modifier.fillMaxWidth())
+    CartItem(Cart(0L, product = products[0], 1), {}, {}, {}, modifier = Modifier.fillMaxWidth())
 }
