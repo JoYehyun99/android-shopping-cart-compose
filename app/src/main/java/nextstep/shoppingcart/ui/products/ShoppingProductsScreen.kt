@@ -1,9 +1,5 @@
-package nextstep.shoppingcart
+package nextstep.shoppingcart.ui.products
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,36 +22,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import nextstep.shoppingcart.ProductRepository.products
+import nextstep.shoppingcart.data.Product
+import nextstep.shoppingcart.data.ProductRepository.products
 import nextstep.shoppingcart.ui.component.ProductItem
-import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 import nextstep.signup.R
-
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            ShoppingCartTheme {
-                ShoppingProductsScreen(
-                    modifier = Modifier.fillMaxSize(),
-                    products = products,
-                    ::navigateToDetail,
-                    ::navigateToCart,
-                )
-            }
-        }
-    }
-
-    private fun navigateToDetail(productId: Long) {
-        val intent = DetailActivity.intent(this@MainActivity, productId)
-        startActivity(intent)
-    }
-
-    private fun navigateToCart() {
-        startActivity(CartActivity.intent(this@MainActivity))
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -107,6 +77,7 @@ fun ShoppingProductsPreview() {
     ShoppingProductsScreen(
         modifier = Modifier.fillMaxSize(),
         products = products,
-        {},{}
+        {},
+        {},
     )
 }

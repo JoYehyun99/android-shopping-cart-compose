@@ -15,15 +15,15 @@
         android:theme="@style/Theme.ShoppingCart"
         tools:targetApi="31">
         <activity
-            android:name="nextstep.shoppingcart.CartActivity"
+            android:name="nextstep.shoppingcart.ui.cart.CartActivity"
             android:exported="false"
             android:theme="@style/Theme.ShoppingCart" />
         <activity
-            android:name="nextstep.shoppingcart.DetailActivity"
+            android:name="nextstep.shoppingcart.ui.productdetail.DetailActivity"
             android:exported="false"
             android:theme="@style/Theme.ShoppingCart" />
         <activity
-            android:name="nextstep.shoppingcart.MainActivity"
+            android:name="nextstep.shoppingcart.ui.products.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ShoppingCart">

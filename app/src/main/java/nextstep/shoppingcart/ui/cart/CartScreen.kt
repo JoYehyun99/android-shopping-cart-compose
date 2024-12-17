@@ -1,19 +1,10 @@
-package nextstep.shoppingcart
+package nextstep.shoppingcart.ui.cart
 
-import android.content.Context
-import android.content.Intent
 import android.icu.text.DecimalFormat
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,37 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import nextstep.shoppingcart.data.Cart
+import nextstep.shoppingcart.data.dummyCartItems
 import nextstep.shoppingcart.ui.component.BackNavigationAppBar
 import nextstep.shoppingcart.ui.component.BottomButton
 import nextstep.shoppingcart.ui.component.CartItem
-import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 import nextstep.signup.R
-
-class CartActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
-        setContent {
-            ShoppingCartTheme {
-                CartScreen(
-                    modifier = Modifier.fillMaxSize().padding(WindowInsets.navigationBars.asPaddingValues()),
-                    navigateBack = { finish() },
-                    cartItems = dummyCartItems,
-                    totalPrice =
-                    dummyCartItems.sumOf {
-                        it.quantity *
-                                it.product.price
-                    },
-                )
-            }
-        }
-    }
-
-    companion object {
-        fun intent(context: Context): Intent = Intent(context, CartActivity::class.java)
-    }
-}
 
 @Composable
 fun CartScreen(
@@ -74,7 +40,7 @@ fun CartScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 items(cartItems) { item ->
-                    CartItem(product = item.product, quantity = item.quantity)
+                    CartItem(cart = item)
                 }
             }
             BottomButton(title = "주문하기(${formatter.format(totalPrice)})") { }

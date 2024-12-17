@@ -1,12 +1,14 @@
-package nextstep.shoppingcart
+package nextstep.shoppingcart.data
 
-import nextstep.shoppingcart.ProductRepository.products
+import nextstep.shoppingcart.data.ProductRepository.products
 
 data class Cart(
-    val id: Long,
+    val id: Long = 0L,
     val product: Product,
     val quantity: Int,
-)
+) {
+    val totalPrice: Int get() = product.price * quantity
+}
 
 val dummyCartItems =
     listOf(

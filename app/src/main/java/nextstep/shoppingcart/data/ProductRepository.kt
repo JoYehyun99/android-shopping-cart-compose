@@ -1,11 +1,4 @@
-package nextstep.shoppingcart
-
-data class Product(
-    val id: Long,
-    val name: String,
-    val price: Int,
-    val imageUrl: String,
-)
+package nextstep.shoppingcart.data
 
 object ProductRepository {
     val products =

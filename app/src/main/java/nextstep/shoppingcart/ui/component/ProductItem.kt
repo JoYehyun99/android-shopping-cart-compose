@@ -16,8 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import nextstep.shoppingcart.Product
-import nextstep.shoppingcart.ProductRepository.products
+import nextstep.shoppingcart.data.Product
+import nextstep.shoppingcart.data.ProductRepository.products
 import nextstep.signup.R
 
 @Composable
