@@ -1,6 +1,7 @@
 package nextstep.shoppingcart.ui.component
 
 import android.icu.text.DecimalFormat
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,11 +23,12 @@ import nextstep.signup.R
 
 @Composable
 fun ProductItem(
-    modifier: Modifier = Modifier,
     product: Product,
+    navigateToDetail: (Long) -> Unit,
+    modifier: Modifier = Modifier,
     formatter: DecimalFormat = DecimalFormat(stringResource(R.string.currency_format)),
 ) {
-    Column(modifier = modifier) {
+    Column(modifier = modifier.clickable { navigateToDetail(product.id) }) {
         AsyncImage(
             model = product.imageUrl,
             contentDescription = null,
@@ -47,5 +49,5 @@ fun ProductItem(
 @Preview(showBackground = true)
 @Composable
 fun ProductItemPreview() {
-    ProductItem(modifier = Modifier.padding(6.dp), product = products[0])
+    ProductItem(product = products[0], navigateToDetail = {}, modifier = Modifier.padding(6.dp))
 }

@@ -30,10 +30,10 @@ import nextstep.signup.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ShoppingProductsScreen(
-    modifier: Modifier = Modifier,
     products: List<Product>,
     navigateToDetail: (id: Long) -> Unit,
     navigateToCart: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Scaffold(
         topBar = {
@@ -63,8 +63,9 @@ fun ShoppingProductsScreen(
         ) {
             items(products) { product ->
                 ProductItem(
-                    modifier = Modifier.padding(6.dp).clickable { navigateToDetail(product.id) },
                     product = product,
+                    navigateToDetail = navigateToDetail,
+                    modifier = Modifier.padding(6.dp),
                 )
             }
         }
@@ -75,9 +76,9 @@ fun ShoppingProductsScreen(
 @Composable
 fun ShoppingProductsPreview() {
     ShoppingProductsScreen(
-        modifier = Modifier.fillMaxSize(),
         products = products,
         {},
         {},
+        modifier = Modifier.fillMaxSize(),
     )
 }

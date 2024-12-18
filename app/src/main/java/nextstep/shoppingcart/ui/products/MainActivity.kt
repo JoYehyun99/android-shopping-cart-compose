@@ -18,10 +18,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             ShoppingCartTheme {
                 ShoppingProductsScreen(
-                    modifier = Modifier.fillMaxSize(),
                     products = products,
-                    ::navigateToDetail,
-                    ::navigateToCart,
+                    navigateToDetail = ::navigateToDetail,
+                    navigateToCart = ::navigateToCart,
+                    modifier = Modifier.fillMaxSize(),
                 )
             }
         }
