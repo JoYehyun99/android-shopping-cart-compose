@@ -32,9 +32,9 @@ import nextstep.signup.R
 @Composable
 fun CartItem(
     cart: Cart,
-    onIncrease: (Long) -> Unit,
-    onDecrease: (Long) -> Unit,
-    onDelete: (Long) -> Unit,
+    onIncrease: (Cart) -> Unit,
+    onDecrease: (Cart) -> Unit,
+    onDelete: (Cart) -> Unit,
     modifier: Modifier = Modifier,
     formatter: DecimalFormat = DecimalFormat(stringResource(R.string.currency_format)),
 ) {
@@ -52,7 +52,7 @@ fun CartItem(
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(cart.product.name, fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                IconButton(onClick = { onDelete(cart.id) }) {
+                IconButton(onClick = { onDelete(cart) }) {
                     Icon(
                         imageVector = Icons.Filled.Close,
                         contentDescription = null,
@@ -77,8 +77,8 @@ fun CartItem(
                     Text(formatter.format(cart.product.price), fontSize = 16.sp)
                     CounterButtonGroup(
                         count = cart.quantity,
-                        onIncrement = { onIncrease(cart.id) },
-                        onDecrement = { onDecrease(cart.id) },
+                        onIncrement = { onIncrease(cart) },
+                        onDecrement = { onDecrease(cart) },
                     )
                 }
             }

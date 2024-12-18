@@ -28,9 +28,9 @@ fun CartScreen(
     navigateBack: () -> Unit,
     cartItems: List<Cart>,
     totalPrice: Int,
-    onIncrease: (Long) -> Unit,
-    onDecrease: (Long) -> Unit,
-    onDelete: (Long) -> Unit,
+    onIncrease: (Cart) -> Unit,
+    onDecrease: (Cart) -> Unit,
+    onDelete: (Cart) -> Unit,
     modifier: Modifier = Modifier,
     formatter: DecimalFormat = DecimalFormat(stringResource(R.string.currency_format)),
 ) {
