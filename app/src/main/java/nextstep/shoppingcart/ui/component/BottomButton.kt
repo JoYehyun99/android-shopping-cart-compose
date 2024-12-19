@@ -18,9 +18,10 @@ import nextstep.shoppingcart.ui.theme.Blue50
 fun BottomButton(
     title: String,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Button(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         colors =
             ButtonDefaults.buttonColors(
                 containerColor = Blue50,
