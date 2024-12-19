@@ -25,6 +25,7 @@ import nextstep.shoppingcart.data.Product
 import nextstep.shoppingcart.data.ProductRepository.products
 import nextstep.shoppingcart.ui.component.BackNavigationAppBar
 import nextstep.shoppingcart.ui.component.BottomButton
+import nextstep.shoppingcart.ui.component.ProductImage
 import nextstep.signup.R
 
 @Composable
@@ -47,11 +48,9 @@ fun ProductDetailScreen(
         Column(
             modifier = Modifier.padding(paddingValue).fillMaxSize(),
         ) {
-            AsyncImage(
-                model = product.imageUrl,
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxWidth().aspectRatio(1f),
+            ProductImage(
+                imageUrl = product.imageUrl,
+                modifier = Modifier.fillMaxWidth().aspectRatio(1f)
             )
             Text(
                 product.name,

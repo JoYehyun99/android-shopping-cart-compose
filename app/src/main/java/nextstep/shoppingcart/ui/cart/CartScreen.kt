@@ -48,7 +48,7 @@ fun CartScreen(
                     CartItem(cart = item, onIncrease = onIncrease, onDecrease = onDecrease, onDelete = onDelete)
                 }
             }
-            BottomButton(title = "주문하기(${formatter.format(totalPrice)})") { }
+            BottomButton(title = "주문하기(${formatter.format(totalPrice)})", onClick = {})
         }
     }
 }

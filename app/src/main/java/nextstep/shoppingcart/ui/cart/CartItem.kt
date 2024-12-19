@@ -17,17 +17,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil3.compose.AsyncImage
 import nextstep.shoppingcart.data.Cart
 import nextstep.shoppingcart.data.Product
 import nextstep.shoppingcart.data.ProductRepository.products
 import nextstep.shoppingcart.ui.component.CounterButtonGroup
+import nextstep.shoppingcart.ui.component.ProductImage
 import nextstep.shoppingcart.ui.theme.Gray10
 import nextstep.signup.R
 
@@ -66,10 +65,8 @@ fun CartItem(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                AsyncImage(
-                    model = cart.product.imageUrl,
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
+                ProductImage(
+                    imageUrl = cart.product.imageUrl,
                     modifier = Modifier.size(width = 136.dp, height = 84.dp),
                 )
                 Column(
