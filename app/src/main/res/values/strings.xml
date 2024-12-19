@@ -6,4 +6,7 @@
     <string name="add_cart_button_text">장바구니 담기</string>
     <string name="currency_format">#,###원</string>
     <string name="cart_title">장바구니</string>
+    <string name="remove_shopping_cart_item">장바구니 상품 삭제</string>
+    <string name="minus_quantity">수량 감소</string>
+    <string name="plus_quantity">수량 증가</string>
 </resources>

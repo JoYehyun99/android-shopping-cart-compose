@@ -25,12 +25,12 @@ class CartActivity : ComponentActivity() {
         setContent {
             ShoppingCartTheme {
                 CartScreen(
-                    navigateBack = { finish() },
                     cartItems = cartItems.items,
                     totalPrice = cartItems.totalPrice,
-                    onIncrease = { cart -> cartItems.addOne(cart) },
-                    onDecrease = { cart -> cartItems.removeOne(cart) },
-                    onDelete = { cart -> cartItems.removeAll(cart) },
+                    navigateBack = { finish() },
+                    onIncrease = { product -> cartItems.addOne(product) },
+                    onDecrease = { product -> cartItems.removeOne(product) },
+                    onDelete = { product -> cartItems.removeAll(product) },
                     modifier =
                         Modifier
                             .fillMaxSize()

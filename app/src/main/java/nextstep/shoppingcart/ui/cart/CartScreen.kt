@@ -17,20 +17,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import nextstep.shoppingcart.data.Cart
+import nextstep.shoppingcart.data.Product
 import nextstep.shoppingcart.data.ProductRepository.products
 import nextstep.shoppingcart.ui.component.BackNavigationAppBar
 import nextstep.shoppingcart.ui.component.BottomButton
-import nextstep.shoppingcart.ui.component.CartItem
 import nextstep.signup.R
 
 @Composable
 fun CartScreen(
-    navigateBack: () -> Unit,
     cartItems: List<Cart>,
     totalPrice: Int,
-    onIncrease: (Cart) -> Unit,
-    onDecrease: (Cart) -> Unit,
-    onDelete: (Cart) -> Unit,
+    navigateBack: () -> Unit,
+    onIncrease: (Product) -> Unit,
+    onDecrease: (Product) -> Unit,
+    onDelete: (Product) -> Unit,
     modifier: Modifier = Modifier,
     formatter: DecimalFormat = DecimalFormat(stringResource(R.string.currency_format)),
 ) {

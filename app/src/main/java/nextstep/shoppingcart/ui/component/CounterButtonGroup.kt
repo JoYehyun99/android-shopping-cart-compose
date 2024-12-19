@@ -15,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,7 +36,7 @@ fun CounterButtonGroup(
         IconButton(onClick = onDecrement) {
             Icon(
                 painter = painterResource(id = R.drawable.icon_remove),
-                contentDescription = null,
+                contentDescription = stringResource(R.string.minus_quantity),
             )
         }
         Text(
@@ -47,7 +48,7 @@ fun CounterButtonGroup(
         IconButton(onClick = onIncrement) {
             Icon(
                 imageVector = Icons.Filled.Add,
-                contentDescription = null,
+                contentDescription = stringResource(R.string.plus_quantity),
             )
         }
     }

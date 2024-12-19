@@ -1,4 +1,4 @@
-package nextstep.shoppingcart.ui.component
+package nextstep.shoppingcart.ui.cart
 
 import android.icu.text.DecimalFormat
 import androidx.compose.foundation.BorderStroke
@@ -25,16 +25,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import nextstep.shoppingcart.data.Cart
+import nextstep.shoppingcart.data.Product
 import nextstep.shoppingcart.data.ProductRepository.products
+import nextstep.shoppingcart.ui.component.CounterButtonGroup
 import nextstep.shoppingcart.ui.theme.Gray10
 import nextstep.signup.R
 
 @Composable
 fun CartItem(
     cart: Cart,
-    onIncrease: (Cart) -> Unit,
-    onDecrease: (Cart) -> Unit,
-    onDelete: (Cart) -> Unit,
+    onIncrease: (Product) -> Unit,
+    onDecrease: (Product) -> Unit,
+    onDelete: (Product) -> Unit,
     modifier: Modifier = Modifier,
     formatter: DecimalFormat = DecimalFormat(stringResource(R.string.currency_format)),
 ) {
@@ -52,10 +54,10 @@ fun CartItem(
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(cart.product.name, fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                IconButton(onClick = { onDelete(cart) }) {
+                IconButton(onClick = { onDelete(cart.product) }) {
                     Icon(
                         imageVector = Icons.Filled.Close,
-                        contentDescription = null,
+                        contentDescription = stringResource(R.string.remove_shopping_cart_item),
                     )
                 }
             }
@@ -77,8 +79,8 @@ fun CartItem(
                     Text(formatter.format(cart.product.price), fontSize = 16.sp)
                     CounterButtonGroup(
                         count = cart.quantity,
-                        onIncrement = { onIncrease(cart) },
-                        onDecrement = { onDecrease(cart) },
+                        onIncrement = { onIncrease(cart.product) },
+                        onDecrement = { onDecrease(cart.product) },
                     )
                 }
             }
