@@ -12,11 +12,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
-import nextstep.shoppingcart.data.CartRepository
+import nextstep.shoppingcart.data.DefaultCartRepository
 import nextstep.shoppingcart.ui.theme.ShoppingCartTheme
 
 class CartActivity : ComponentActivity() {
-    private val cartItems by lazy { CartStateHolder(CartRepository) }
+    private val cartItems by lazy { CartStateHolder(DefaultCartRepository) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

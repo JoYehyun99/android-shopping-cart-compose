@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.setValue
 import nextstep.shoppingcart.data.Cart
 import nextstep.shoppingcart.data.CartRepository
+import nextstep.shoppingcart.data.Product
 
 class CartStateHolder(
     private val repository: CartRepository,
@@ -15,7 +16,7 @@ class CartStateHolder(
     val totalPrice: Int get() = _items.sumOf { it.totalPrice }
 
     init {
-        _items.addAll(repository.items)
+        _items.addAll(repository.getAllItems())
     }
 
     private fun update(newValue: List<Cart>) {
@@ -23,18 +24,18 @@ class CartStateHolder(
         _items.addAll(newValue)
     }
 
-    fun addOne(cart: Cart) {
-        val result = repository.addOne(cart)
+    fun addOne(product: Product) {
+        val result = repository.addOne(product)
         update(result)
     }
 
-    fun removeOne(cart: Cart) {
-        val result = repository.removeOne(cart)
+    fun removeOne(product: Product) {
+        val result = repository.removeOne(product)
         update(result)
     }
 
-    fun removeAll(cart: Cart) {
-        val result = repository.removeAll(cart)
+    fun removeAll(product: Product) {
+        val result = repository.removeAll(product)
         update(result)
     }
 }
