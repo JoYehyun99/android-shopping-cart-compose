@@ -1,14 +1,7 @@
 package nextstep.shoppingcart.data
 
-import nextstep.shoppingcart.data.ProductRepository.products
-
 object DefaultCartRepository : CartRepository {
-    private val carts =
-        mutableListOf(
-            Cart(0L, product = products[0], 1),
-            Cart(1L, product = products[1], 2),
-            Cart(2L, product = products[2], 3),
-        )
+    private val carts = mutableListOf<Cart>()
 
     override fun getAllItems(): List<Cart> = carts.toList()
 
